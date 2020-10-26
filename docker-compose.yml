@@ -1,0 +1,21 @@
+version: '3.8'
+services:
+    mongo:
+        image:  mongo:latest
+        container_name: 'mongo-db-contenedor'
+        restart:    always
+        environment:
+            MONGO_INITDB_ROOT_USERNAME: root
+            MONGO_INITDB_ROOT_PASSWORD: root
+            MONGO_INITDB_DATABASE:  bases2
+        ports:
+            -   "27017-27019:27017-27019"
+        volumes:            
+            -   mongovol:/data/db
+            -   ./init/patents.json:/inicio/patents.json
+            -   ./init/countries.json:/inicio/countries.json
+            -   ./init/init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js
+            -   ./init/init-mongo.sh:/docker-entrypoint-initdb.d/mongo_import.sh
+volumes:
+    mongovol:
+        
